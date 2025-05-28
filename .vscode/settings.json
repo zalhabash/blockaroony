@@ -2,5 +2,8 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
-  }
+  },
+  "vitest.rootConfig": "client\\vite.config.ts",
+  "eslint.validate": ["javascript", "typescript", "svelte"],
+  "eslint.rules.customizations": [{ "rule": "*", "severity": "downgrade" }]
 }
