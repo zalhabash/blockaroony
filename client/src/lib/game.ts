@@ -20,7 +20,7 @@ export class Game {
     const pieceCount = Math.max(...level.solution);
 
     for (let pieceNumber = 1; pieceNumber <= pieceCount; pieceNumber++) {
-      const untrimmedPiece = level.solution.map((cell) => cell === pieceNumber);
+      const untrimmedShape = level.solution.map((cell) => cell === pieceNumber);
 
       let firstColumn = level.boardSideLength;
       let lastColumn = 0;
@@ -29,7 +29,7 @@ export class Game {
 
       for (let row = 0; row < this.boardSideLength; row++) {
         for (let column = 0; column < this.boardSideLength; column++) {
-          if (untrimmedPiece[row * this.boardSideLength + column]) {
+          if (untrimmedShape[row * this.boardSideLength + column]) {
             if (column < firstColumn) {
               firstColumn = column;
             }
@@ -46,18 +46,18 @@ export class Game {
         }
       }
 
-      const trimmedPiece: boolean[] = [];
+      const trimmedShape: boolean[] = [];
 
       for (let row = firstRow; row <= lastRow; row++) {
         for (let column = firstColumn; column <= lastColumn; column++) {
-          trimmedPiece.push(untrimmedPiece[row * this.boardSideLength + column]);
+          trimmedShape.push(untrimmedShape[row * this.boardSideLength + column]);
         }
       }
 
       this.pieces.push({
         height: lastRow - firstRow + 1,
         width: lastColumn - firstColumn + 1,
-        shape: trimmedPiece,
+        shape: trimmedShape,
       });
     }
   }
