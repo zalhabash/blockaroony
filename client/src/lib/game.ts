@@ -20,52 +20,28 @@ export class Game {
     const pieceCount = Math.max(...level.solution);
 
     for (let pieceNumber = 1; pieceNumber <= pieceCount; pieceNumber++) {
-      const untrimmedPiece: boolean[] = [];
-      for (const cell of level.solution) {
-        if (cell === pieceNumber) {
-          untrimmedPiece.push(true);
-        } else {
-          untrimmedPiece.push(false);
-        }
-      }
+      const untrimmedPiece = level.solution.map((cell) => cell === pieceNumber);
 
-      let firstColumn = 0;
-      let lastColumn = level.boardSideLength;
-      let firstRow = 0;
-      let lastRow = level.boardSideLength;
+      let firstColumn = level.boardSideLength;
+      let lastColumn = 0;
+      let firstRow = level.boardSideLength;
+      let lastRow = 0;
 
-      findFirstColumn: for (let column = 0; column < this.boardSideLength; column++) {
-        for (let row = 0; row < this.boardSideLength; row++) {
-          if (untrimmedPiece[row * this.boardSideLength + column] === true) {
-            firstColumn = column;
-            break findFirstColumn;
-          }
-        }
-      }
-
-      findLastColumn: for (let column = this.boardSideLength - 1; column >= 0; column--) {
-        for (let row = 0; row < this.boardSideLength; row++) {
-          if (untrimmedPiece[row * this.boardSideLength + column] === true) {
-            lastColumn = column;
-            break findLastColumn;
-          }
-        }
-      }
-
-      findFirstRow: for (let row = 0; row < this.boardSideLength; row++) {
+      for (let row = 0; row < this.boardSideLength; row++) {
         for (let column = 0; column < this.boardSideLength; column++) {
-          if (untrimmedPiece[row * this.boardSideLength + column] === true) {
-            firstRow = row;
-            break findFirstRow;
-          }
-        }
-      }
-
-      findLastRow: for (let row = this.boardSideLength - 1; row >= 0; row--) {
-        for (let column = 0; column < this.boardSideLength; column++) {
-          if (untrimmedPiece[row * this.boardSideLength + column] === true) {
-            lastRow = row;
-            break findLastRow;
+          if (untrimmedPiece[row * this.boardSideLength + column]) {
+            if (column < firstColumn) {
+              firstColumn = column;
+            }
+            if (row < firstRow) {
+              firstRow = row;
+            }
+            if (column > lastColumn) {
+              lastColumn = column;
+            }
+            if (row > lastRow) {
+              lastRow = row;
+            }
           }
         }
       }
