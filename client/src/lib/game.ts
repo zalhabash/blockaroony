@@ -71,14 +71,10 @@ export class Game {
       }
 
       const trimmedPiece: boolean[] = [];
-      for (let cell = 0; cell < untrimmedPiece.length; cell++) {
-        if (
-          cell % this.boardSideLength >= firstColumn &&
-          cell % this.boardSideLength <= lastColumn &&
-          Math.floor(cell / this.boardSideLength) >= firstRow &&
-          Math.floor(cell / this.boardSideLength) <= lastRow
-        ) {
-          trimmedPiece.push(untrimmedPiece[cell]);
+
+      for (let row = firstRow; row <= lastRow; row++) {
+        for (let column = firstColumn; column <= lastColumn; column++) {
+          trimmedPiece.push(untrimmedPiece[row * this.boardSideLength + column]);
         }
       }
 
