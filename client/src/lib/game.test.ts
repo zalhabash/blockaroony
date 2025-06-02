@@ -1,19 +1,25 @@
 import { describe, expect, it } from "vitest";
-import { Game, type Level } from "./game";
+import { Game, type Level, type Piece } from "./game";
 
 describe("Game", () => {
   it("should create a single piece in the constructor", () => {
     const level: Level = {
       boardSideLength: 2,
-      solution: [1, 1, 1, 1],
+      solution: [
+        [1, 1],
+        [1, 1],
+      ].flat(),
     };
     const game = new Game(level);
 
-    expect(game.pieces).toStrictEqual([
+    expect(game.pieces).toStrictEqual<Piece[]>([
       {
         height: 2,
         width: 2,
-        shape: [true, true, true, true],
+        shape: [
+          [true, true],
+          [true, true],
+        ].flat(),
       },
     ]);
   });
@@ -21,11 +27,14 @@ describe("Game", () => {
   it("should create two rectangular pieces in the constructor", () => {
     const level: Level = {
       boardSideLength: 2,
-      solution: [1, 1, 2, 2],
+      solution: [
+        [1, 1],
+        [2, 2],
+      ].flat(),
     };
     const game = new Game(level);
 
-    expect(game.pieces).toStrictEqual([
+    expect(game.pieces).toStrictEqual<Piece[]>([
       {
         height: 1,
         width: 2,
@@ -42,15 +51,21 @@ describe("Game", () => {
   it("should create two non-rectangular pieces in the constructor", () => {
     const level: Level = {
       boardSideLength: 2,
-      solution: [1, 1, 1, 2],
+      solution: [
+        [1, 1],
+        [1, 2],
+      ].flat(),
     };
     const game = new Game(level);
 
-    expect(game.pieces).toStrictEqual([
+    expect(game.pieces).toStrictEqual<Piece[]>([
       {
         height: 2,
         width: 2,
-        shape: [true, true, true, false],
+        shape: [
+          [true, true],
+          [true, false],
+        ].flat(),
       },
       {
         height: 1,
