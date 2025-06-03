@@ -2,6 +2,33 @@ import { describe, expect, it } from "vitest";
 import { Game, type Level, type Piece } from "./game";
 
 describe("Game", () => {
+  it("should not create a game from a level with a boardSideLength of 0", () => {
+    const level: Level = {
+      boardSideLength: 0,
+      solution: [1, 1],
+    };
+
+    expect(() => new Game(level)).toThrowError("Board side length should be a positive number");
+  });
+
+  it("should not create a game from a level with a negative boardSideLength", () => {
+    const level: Level = {
+      boardSideLength: -3,
+      solution: [1, 1],
+    };
+
+    expect(() => new Game(level)).toThrowError("Board side length should be a positive number");
+  });
+
+  it("should not create a game from a level with an empty solution", () => {
+    const level: Level = {
+      boardSideLength: 2,
+      solution: [],
+    };
+
+    expect(() => new Game(level)).toThrowError("Level solution should not be empty");
+  });
+
   it("should create a single piece in the constructor", () => {
     const level: Level = {
       boardSideLength: 2,

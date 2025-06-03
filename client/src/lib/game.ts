@@ -14,6 +14,13 @@ export class Game {
   pieces: Piece[];
 
   constructor(level: Level) {
+    if (level.boardSideLength <= 0) {
+      throw Error("Board side length should be a positive number");
+    }
+    if (level.solution.length === 0) {
+      throw Error("Level solution should not be empty");
+    }
+
     this.boardSideLength = level.boardSideLength;
     this.pieces = [];
 
